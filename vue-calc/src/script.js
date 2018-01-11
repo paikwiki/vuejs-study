@@ -1,3 +1,4 @@
+
 Vue.component('vc-screen', {
   props: ['dp'],
   template: `<div class="vc-screen">{{ dp === '' ? 0 : dp }}</div>`
@@ -58,35 +59,59 @@ Vue.component('vc-numpad', {
   }  
 })
 
-const app = new Vue({
-  el: '#root',
-  data: {
-    items: [
-      { name: 'AC' },
-      { name: '+/-' },
-      { name: '%' },
-      { name: '/' },
-      { name: '7' },
-      { name: '8' },
-      { name: '9' },
-      { name: '*' },
-      { name: '4' },
-      { name: '5' },
-      { name: '6' },
-      { name: '-' },
-      { name: '1' },
-      { name: '2' },
-      { name: '3' },
-      { name: '+' },
-      { name: '0' },
-      { name: '00' },
-      { name: '.' },
-      { name: '=' },
-    ],
-    display: '',
-    formula: '',
-    currentState: false,
-    displayClear: false
+Vue.component('vc-device', {
+  template: `<div class="vc-wrapper">
+              <div class="vc-screen-wrapper">
+                <vc-screen
+                  :dp="display">
+                </vc-screen>
+              </div> 
+              <div class="vc-numpad-wrapper">
+                <vc-numpad
+                  v-for="item in items"
+                  :item="item"
+                  :dp="display"
+                  :dc="displayClear"
+                  :fm="formula"
+                  :cs="currentState"
+                  :ss="setCurrentState"
+                  :sd="setDisplay"
+                  :sdc="setDisplayClear"
+                  :sf="setFormula"
+                  :gr="getResult"
+                  :key="item.index">
+                </vc-numpad>
+              </div>
+            </div>`,
+  data: function() {
+    return {
+      items: [
+        { name: 'AC' },
+        { name: '+/-' },
+        { name: '%' },
+        { name: '/' },
+        { name: '7' },
+        { name: '8' },
+        { name: '9' },
+        { name: '*' },
+        { name: '4' },
+        { name: '5' },
+        { name: '6' },
+        { name: '-' },
+        { name: '1' },
+        { name: '2' },
+        { name: '3' },
+        { name: '+' },
+        { name: '0' },
+        { name: '00' },
+        { name: '.' },
+        { name: '=' },
+      ],
+      display: '',
+      formula: '',
+      currentState: false,
+      displayClear: false
+    }
   },
   methods: {
     setDisplay: function(value) {
@@ -109,5 +134,11 @@ const app = new Vue({
       this.display = value
       this.formula = ''
     }
-  }
+  }          
 })
+
+const app = new Vue({
+  el: '#root'
+})
+
+
