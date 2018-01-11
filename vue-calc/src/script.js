@@ -86,7 +86,7 @@ Vue.component('vc-device', {
     return {
       items: [
         { name: 'AC', type: 'ac' },
-        { name: '+/-', type: '+/-' },
+        { name: '+/-', type: '+-' },
         { name: '%', type: 'op' },
         { name: '/', type: 'op' },
         { name: '7', type: 'num' },
