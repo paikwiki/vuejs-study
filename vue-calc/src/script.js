@@ -5,21 +5,21 @@ Vue.component('vc-screen', {
 })
 
 Vue.component('vc-numpad', {
-  props: ['item', 'dp', 'dc', 'fm', 'cs', 'ss', 'sd', 'sdc', 'sf', 'gr'],
+  props: ['item', 'dp', 'dc', 'fm', 'iso', 'ss', 'sd', 'sdc', 'sf', 'gr'],
   template: `<button
               @click="onClick(item)">
                 {{ item.name }}
             </button>`,
   methods: {
     onClick: function(item) {
-      if(item.name === 'AC') {
+      if(item.type === 'ac') {
         this.sd('')
         this.sf('')
         this.ss(false)
         this.sdc(false)
         
         return
-      } else if(parseInt(item.name) < 10 || item.name === '.') {
+      } else if(item.type === 'num') {
         if (this.dc) {
           this.sd(item.name)
           this.sdc(false)
@@ -28,23 +28,23 @@ Vue.component('vc-numpad', {
         }
 
         return 
-      } else if(item.name === '+/-') {
+      } else if(item.type === '+-') {
         this.sd(parseInt(this.dp)*-1)
  
         return
-      } else if('%/*-+='.indexOf(item.name) > -1) {
-        if (!this.cs && item.name === '=' ) {
+      } else if(item.type === 'op') {
+        if (!this.iso && item.name === '=' ) {
           
           return
         }
-        if (this.cs && this.dp === this.fm.slice(0,-1)) {
+        if (this.iso && this.dp === this.fm.slice(0,-1)) {
           return
         }
         if (this.dp === '') {
           
           return
         }
-        if (this.cs) {
+        if (this.iso) {
           this.gr(eval(this.fm + this.dp)) 
           this.ss(false)
         } else {
@@ -71,8 +71,8 @@ Vue.component('vc-device', {
                   :dp="display"
                   :dc="displayClear"
                   :fm="formula"
-                  :cs="currentState"
-                  :ss="setCurrentState"
+                  :iso="isSecondOperand"
+                  :ss="setSecondOperand"
                   :sd="setDisplay"
                   :sdc="setDisplayClear"
                   :sf="setFormula"
@@ -84,30 +84,30 @@ Vue.component('vc-device', {
   data: function() {
     return {
       items: [
-        { name: 'AC' },
-        { name: '+/-' },
-        { name: '%' },
-        { name: '/' },
-        { name: '7' },
-        { name: '8' },
-        { name: '9' },
-        { name: '*' },
-        { name: '4' },
-        { name: '5' },
-        { name: '6' },
-        { name: '-' },
-        { name: '1' },
-        { name: '2' },
-        { name: '3' },
-        { name: '+' },
-        { name: '0' },
-        { name: '00' },
-        { name: '.' },
-        { name: '=' },
+        { name: 'AC', type: 'ac' },
+        { name: '+/-', type: '+/-' },
+        { name: '%', type: 'op' },
+        { name: '/', type: 'op' },
+        { name: '7', type: 'num' },
+        { name: '8', type: 'num' },
+        { name: '9', type: 'num' },
+        { name: '*', type: 'op' },
+        { name: '4', type: 'num' },
+        { name: '5', type: 'num' },
+        { name: '6', type: 'num' },
+        { name: '-', type: 'op' },
+        { name: '1', type: 'num' },
+        { name: '2', type: 'num' },
+        { name: '3', type: 'num' },
+        { name: '+', type: 'op' },
+        { name: '0', type: 'num' },
+        { name: '00', type: 'num' },
+        { name: '.', type: 'num' },
+        { name: '=', type: 'op' },
       ],
       display: '',
       formula: '',
-      currentState: false,
+      isSecondOperand: false,
       displayClear: false
     }
   },
@@ -122,8 +122,9 @@ Vue.component('vc-device', {
     setDisplayClear: function(value) {
       this.displayClear = value
     },
-    setCurrentState: function(value) {
-      this.currentState = value
+    setSecondOperand: function(value) {
+      console.log( value ? 'It will be the second operand' : 'It will be the first operand');
+      this.isSecondOperand = value
     },
     setFormula: function(value) {
       this.formula = value
@@ -138,5 +139,3 @@ Vue.component('vc-device', {
 const app = new Vue({
   el: '#root'
 })
-
-
