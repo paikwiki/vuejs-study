@@ -12,48 +12,49 @@ Vue.component('vc-numpad', {
             </button>`,
   methods: {
     onClick: function(item) {
-      if(item.type === 'ac') {
-        this.sd('')
-        this.sf('')
-        this.sso(false)
-        this.sdc(false)
-        
-        return
-      } else if(item.type === 'num') {
-        if (this.dc) {
-          this.sd(item.name)
-          this.sdc(false)
-        } else {
-          this.sd(this.dp + item.name)
-        }
-
-        return 
-      } else if(item.type === '+-') {
-        this.sd(parseInt(this.dp)*-1)
- 
-        return
-      } else if(item.type === 'op') {
-        if (!this.iso && item.name === '=' ) {
-          
-          return
-        }
-        if (this.iso && this.dp === this.fm.slice(0,-1)) {
-          return
-        }
-        if (this.dp === '') {
-          
-          return
-        }
-        if (this.iso) {
-          this.gr(eval(this.fm + this.dp)) 
+      switch (item.type) {
+        case 'ac':
+          this.sd('')
+          this.sf('')
           this.sso(false)
-        } else {
-          this.sf(this.dp + item.name)
-          this.sso(true)
-        }
-        this.sdc(true)
-        
-        return 
+          this.sdc(false)
+          
+          break
+        case 'num':
+          if (this.dc) {
+            this.sd(item.name)
+            this.sdc(false)
+          } else {
+            this.sd(this.dp + item.name)
+          }
+
+          break
+        case '+-':
+          this.sd(parseInt(this.dp)*-1)
+ 
+          break
+        case 'op':
+          if (!this.iso && item.name === '=' ) {
+            
+            return
+          }
+          if (this.iso && this.dp === this.fm.slice(0,-1)) {
+            return
+          }
+          if (this.dp === '') {
+            
+            return
+          }
+          if (this.iso) {
+            this.gr(eval(this.fm + this.dp)) 
+            this.sso(false)
+          } else {
+            this.sf(this.dp + item.name)
+            this.sso(true)
+          }
+          this.sdc(true)
+          
+          break
       }
     }
   }  
@@ -123,7 +124,7 @@ Vue.component('vc-device', {
       this.displayClear = value
     },
     setSecondOperand: function(value) {
-      console.log( value ? 'It will be the second operand' : 'It will be the first operand');
+      // console.log( value ? 'It will be the second operand' : 'It will be the first operand');
       this.isSecondOperand = value
     },
     setFormula: function(value) {
