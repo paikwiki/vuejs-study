@@ -61,11 +61,9 @@ Vue.component('vc-numpad', {
 
 Vue.component('vc-device', {
   template: `<div class="vc-wrapper">
-              <div class="vc-screen-wrapper">
-                <vc-screen
-                  :dp="display">
-                </vc-screen>
-              </div> 
+              <vc-screen
+                :dp="display">
+              </vc-screen>
               <div class="vc-numpad-wrapper">
                 <vc-numpad
                   v-for="item in items"
