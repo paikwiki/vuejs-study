@@ -5,7 +5,7 @@ Vue.component('vc-screen', {
 })
 
 Vue.component('vc-numpad', {
-  props: ['item', 'dp', 'dc', 'fm', 'iso', 'ss', 'sd', 'sdc', 'sf', 'gr'],
+  props: ['item', 'dp', 'dc', 'fm', 'iso', 'sso', 'sd', 'sdc', 'sf', 'gr'],
   template: `<button
               @click="onClick(item)">
                 {{ item.name }}
@@ -15,7 +15,7 @@ Vue.component('vc-numpad', {
       if(item.type === 'ac') {
         this.sd('')
         this.sf('')
-        this.ss(false)
+        this.sso(false)
         this.sdc(false)
         
         return
@@ -46,10 +46,10 @@ Vue.component('vc-numpad', {
         }
         if (this.iso) {
           this.gr(eval(this.fm + this.dp)) 
-          this.ss(false)
+          this.sso(false)
         } else {
           this.sf(this.dp + item.name)
-          this.ss(true)
+          this.sso(true)
         }
         this.sdc(true)
         
@@ -72,7 +72,7 @@ Vue.component('vc-device', {
                   :dc="displayClear"
                   :fm="formula"
                   :iso="isSecondOperand"
-                  :ss="setSecondOperand"
+                  :sso="setSecondOperand"
                   :sd="setDisplay"
                   :sdc="setDisplayClear"
                   :sf="setFormula"
