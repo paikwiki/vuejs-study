@@ -1,21 +1,23 @@
 // 두 명의 플레이어 데이터
 const players = [
   {
+    id: 0,
     name: 'Jane',
     pod: [
       { name: 'one' },
       { name: 'two' },
       { name: 'three' }
     ],
-    other: 'John'
+    other: 1
   },
   {
+    id: 1,
     name: 'John',
     pod: [
       { name: 'four' },
       { name: 'five' }
     ],
-    other: 'Jane'
+    other: 0
   }
 ]
 
@@ -23,7 +25,7 @@ const players = [
 const pod = {
   props: ['item'],
   template: `<li>{{ item.name }}</li>`
-};
+}
 
 Vue.component('player', {
   props: ['player', 'oPlayer'],
@@ -43,7 +45,7 @@ Vue.component('player', {
   },
   methods: {
     doToss: function() {
-      return console.log(this.oPlayer)
+      this.$emit('doToss', this.player)
     }
   }
 })
@@ -54,12 +56,26 @@ Vue.component('app', {
                 v-for="player in players"
                 :key="player.id"
                 :player="player"
-                :oPlayer="player.other">
+                :oPlayer="player.other"
+                @doToss="doToss">
               </player>
             </div>`,
   data: function() {
     return {
       players: players
+    }
+  },
+  methods: {
+    doToss: function(p) {
+      if( p.pod.length > 0 ) {
+        const podItem = p.pod.pop()
+        for (player of this.players) {
+          player.id === p.other ? player.pod.push(podItem) : undefined
+        }
+      } else {
+        alert(`${p.name} has no item!`)
+        return
+      }
     }
   }
 })
