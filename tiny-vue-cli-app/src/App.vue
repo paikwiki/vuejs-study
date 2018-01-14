@@ -18,4 +18,11 @@ export default {
 </script>
 
 <style>
+#app {
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 1100px;
+  background-color: papayawhip;
+  box-sizing: border-box;
+}
 </style>
