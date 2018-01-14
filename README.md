@@ -2,7 +2,7 @@
 
 This repository was created to study Vue.js.
 
-- Demo : [paikwiki.github.io/vuejs-study/](paikwiki.github.io/vuejs-study/)
+- Demo : [https://paikwiki.github.io/vuejs-study/](https://paikwiki.github.io/vuejs-study/)
 
 ## License
 
