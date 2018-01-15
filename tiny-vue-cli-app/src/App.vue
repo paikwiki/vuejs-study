@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <h1>Tiny Vue-cli App</h1>
-    <Nav/>
+    <Nav
+      :ni="navItem"/>
     <router-view/>
   </div>
 </template>
@@ -12,8 +13,16 @@ import Nav from './components/Nav';
 export default {
   name: 'App',
   components: {
-    Nav
-  }
+    Nav,
+  },
+  data() {
+    return {
+      navItem: {
+        main: '/',
+        rightHere: 'right-here',
+      },
+    };
+  },
 };
 </script>
 

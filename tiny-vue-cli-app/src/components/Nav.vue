@@ -1,21 +1,16 @@
 <template>
   <div>
     <ul>
-      <li><a :href="main">Main😎</a></li>
-      <li><a :href="rightHere">Where?🤔</a></li>
+      <li><router-link :to="ni.main">Main😎</router-link></li>
+      <li><router-link :to="ni.rightHere">Where?🤔</router-link></li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['ni'],
   name: 'Nav',
-  data() {
-    return {
-      main: '#/',
-      rightHere: '#/right-here'
-    };
-  },
 };
 </script>
 
