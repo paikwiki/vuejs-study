@@ -9,7 +9,7 @@ export default {
   name: 'RightHere',
   data() {
     return {
-      msg: 'You\'re in Right Here!💁🏽',
+      msg: 'You\'re Right Here!💁🏽💁🏼‍♂️',
     };
   },
 };
